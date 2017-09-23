@@ -9,6 +9,7 @@
 <%-- The markup and script in the following Content element will be placed in the <head> of the page --%>
 <asp:Content ContentPlaceHolderID="PlaceHolderAdditionalPageHead" runat="server">
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jsrender.min.js"></script>
     <script type="text/javascript" src="/_layouts/15/sp.runtime.js"></script>
     <script type="text/javascript" src="/_layouts/15/sp.js"></script>
     <meta name="WebPartPageExpansion" content="full" />
@@ -18,6 +19,18 @@
 
     <!-- Add your JavaScript to the following file -->
     <script type="text/javascript" src="../Scripts/App.js"></script>
+
+    <script id="products-template" type="text/x-jsrender">
+        <ul>
+            {{for #data}}
+            <li>
+                <b>{{>#data.get_item('Title')}}</b>
+                <br />
+                {{>#data.get_item('UnitsInStock')}} in stock at {{>#data.get_item('UnitPrice')}}
+            </li>
+            {{/for}}
+        </ul>
+    </script>
 </asp:Content>
 
 <%-- The markup in the following Content element will be placed in the TitleArea of the page --%>
@@ -37,6 +50,7 @@
         
         <p><button role="button" id="loadButton">loadIncludes</button></p>
         <p><button role="button" id="camlQueries">CamlQuery</button></p>
+        <p><button role="button" id="dataBinding">Data Bind</button></p>
     </div>
 
 </asp:Content>
