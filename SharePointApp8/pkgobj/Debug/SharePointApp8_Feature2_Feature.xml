@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Id="f96f5d83-fa49-4452-9f53-891e1e58225e" Scope="Web" Title="SharePointApp8 Feature2" Version="1.0.0.0">
+  <ElementManifests>
+    <ElementManifest Location="Products\Elements.xml" />
+    <ElementFile Location="Products\Schema.xml" />
+    <ElementManifest Location="ProductsInstance\Elements.xml" />
+  </ElementManifests>
+  <UpgradeActions>
+    <VersionRange>
+      <ApplyElementManifests>
+        <ElementManifest Location="Products\Elements.xml" />
+        <ElementManifest Location="ProductsInstance\Elements.xml" />
+      </ApplyElementManifests>
+    </VersionRange>
+  </UpgradeActions>
+</Feature>

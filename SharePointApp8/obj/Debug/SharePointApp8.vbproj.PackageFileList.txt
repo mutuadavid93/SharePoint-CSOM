@@ -1,0 +1,1 @@
+bin\Debug\SharePointApp8.wsp

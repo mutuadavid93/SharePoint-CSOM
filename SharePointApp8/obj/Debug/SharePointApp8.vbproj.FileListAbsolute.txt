@@ -1,0 +1,5 @@
+c:\users\istre\onedrive\documents\visual studio 2013\Projects\SharePointApp8\SharePointApp8\bin\Debug\SharePointApp8.pdb
+c:\users\istre\onedrive\documents\visual studio 2013\Projects\SharePointApp8\SharePointApp8\bin\Debug\SharePointApp8.xml
+c:\users\istre\onedrive\documents\visual studio 2013\Projects\SharePointApp8\SharePointApp8\obj\Debug\SharePointApp8.dll
+c:\users\istre\onedrive\documents\visual studio 2013\Projects\SharePointApp8\SharePointApp8\obj\Debug\SharePointApp8.xml
+c:\users\istre\onedrive\documents\visual studio 2013\Projects\SharePointApp8\SharePointApp8\obj\Debug\SharePointApp8.pdb
