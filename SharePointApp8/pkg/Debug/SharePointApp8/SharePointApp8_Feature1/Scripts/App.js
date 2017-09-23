@@ -127,31 +127,64 @@ function loadAndInclude(event) {
 function createList(event) {
     event.preventDefault();
 
+    //var curCTX = SP.ClientContext.get_current();
+    //var web = curCTX.get_web();
+
     var curCTX = SP.ClientContext.get_current();
     var web = curCTX.get_web();
 
     try {
-        var lci = new SP.ListCreationInformation();
+        // Exception Handling Using ScopeErrorHandling
+        var list = null;
 
-        // Set the List Properties
-        lci.set_title("Code_Tasks_List");
-        lci.set_templateType(SP.ListTemplateType.tasks);
-        lci.set_quickLaunchOption(SP.QuickLaunchOptions.on);
+        var scope = new SP.ExceptionHandlingScope(curCTX);
+        var scopeStart = scope.startScope();
 
-        // Now Create the List
-        var list = web.get_lists().add(lci);
+        var scopeTry = scope.startTry();
+            list = web.get_lists().getByTitle("Code_Tasks_List");
+            curCTX.load(list);
+        scopeTry.dispose();
 
-        curCTX.executeQueryAsync(success3, fail3);
+        var scopeCatch = scope.startCatch();
+            var lci = new SP.ListCreationInformation();
+            // Set the List Properties
+            lci.set_title("Code_Tasks_List");
+            lci.set_templateType(SP.ListTemplateType.tasks);
+            lci.set_quickLaunchOption(SP.QuickLaunchOptions.on);
+            // Now Create the List
+            var list = web.get_lists().add(lci);
+        scopeCatch.dispose();
+
+        var scopeFinally = scope.startFinally();
+            // console.log("Finnaly: Try and load the list again if created in catch");
+            list = web.get_lists().getByTitle("Code_Tasks_List");
+            curCTX.load(list);
+        scopeFinally.dispose();
+
+        // End the Parent Scope
+        scopeStart.dispose();
+
+       // curCTX.executeQueryAsync(success3, fail3);
+
+        curCTX.executeQueryAsync(function () {
+            if (scope.get_hasException() == true) {
+                alert("The List Does not exists")
+            }
+            else {
+                alert("The List Already Exists");
+            }
+        });
+
     } catch (Exception) {
         alert(Exception.message);
     }
 
-    function success3() {
-        var message = $('#message');
-        message.text("List Created Successfully.");
-    }
+    //function success3() {
+    //    var message = $('#message');
+    //    message.text("List Created Successfully.");
+    //}
 
-    function fail3(sender, args) {
-        alert("Call failed in createList(). Error: " + args.get_message());
-    }
+    //function fail3(sender, args) {
+    //    alert("Call failed in createList(). Error: " + args.get_message());
+    //}
 } // createList()
