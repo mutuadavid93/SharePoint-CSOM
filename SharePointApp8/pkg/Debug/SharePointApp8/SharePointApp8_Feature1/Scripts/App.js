@@ -10,15 +10,30 @@ function loadAndInclude(event) {
     var curCTX = SP.ClientContext.get_current();
     var lists = curCTX.get_web().get_lists();
 
-    curCTX.load(lists, "Include(Title)");
+    // Retrieve List Titles together with Each List's Title Field.
+    // Nested Includes
+    curCTX.load(lists, "Include(Title, Fields.Include(Title))");
+
     curCTX.executeQueryAsync(success, fail);
 
     function success() {
         var message = $('#message');
         var lenum = lists.getEnumerator();
         while (lenum.moveNext()) {
+            var list = lenum.get_current();
             message.append("<br />");
-            message.append(lenum.get_current().get_title());
+            message.append(list.get_title());
+
+            // Go One Step Deep Inside Each List's Fields Collection
+            var fenum = list.get_fields().getEnumerator();
+            //var x = 0;
+            while (fenum.moveNext()) {
+                var field = fenum.get_current();
+                message.append("<br />&nbsp;&nbsp;&nbsp;&nbsp;");
+                message.append(field.get_title());
+
+                //if(x++ > 10) break; // return only 5 items
+            }
         }
     }
 
