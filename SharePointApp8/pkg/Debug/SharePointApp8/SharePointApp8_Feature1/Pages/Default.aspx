@@ -34,7 +34,9 @@
             initializing...
         </p>
         <br />
-        <button role="button" id="loadButton">loadIncludes</button>
+        
+        <p><button role="button" id="loadButton">loadIncludes</button></p>
+        <p><button role="button" id="camlQueries">CamlQuery</button></p>
     </div>
 
 </asp:Content>

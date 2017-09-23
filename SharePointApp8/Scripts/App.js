@@ -2,7 +2,47 @@
 
 $(function () {
     $('#loadButton').click(loadAndInclude);
+    $('#camlQueries').click(camlQueries);
 }); //doument ready
+
+function camlQueries(event) {
+    event.preventDefault();
+
+    var curCTX = SP.ClientContext.get_current();
+    var list = curCTX.get_web().get_lists().getByTitle("Products");
+
+    // The CamlQuery
+    // Query Products Lists for All Items Where Category Equal to 
+    // Beverages(ID = 1)
+    var query = new SP.CamlQuery();
+    query.set_viewXml("<View>"+
+                            "<Query>"+
+                               "<Where>"+
+                                  "<Eq>"+
+                                     "<FieldRef Name='Category' LookupId='True' />"+
+                                     "<Value Type='Lookup'>8</Value>"+
+                                  "</Eq>"+
+                               "</Where>"+
+                            "</Query>"+
+                        "</View>");
+    var items = list.getItems(query);
+    curCTX.load(items, "Include(ID, Title, QuantityPerUnit)");
+    curCTX.executeQueryAsync(success1, fail1);
+
+    function success1() {
+        var message = $('#message');
+        var ienum = items.getEnumerator();
+
+        while (ienum.moveNext()) {
+            message.append("<br />");
+            message.append(ienum.get_current().get_item("QuantityPerUnit"));
+        } // while loop
+    } // success1()
+    function fail1(sender, args) {
+        alert("Call failed in camlQueries(). Error: " + args.get_message());
+    }
+
+} // camlQueries()
 
 function loadAndInclude(event) {
     event.preventDefault(); // Alter Default Refresh Behaviour
