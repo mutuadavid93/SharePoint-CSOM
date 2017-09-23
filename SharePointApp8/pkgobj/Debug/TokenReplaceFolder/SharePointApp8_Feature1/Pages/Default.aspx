@@ -51,6 +51,7 @@
         <p><button role="button" id="loadButton">loadIncludes</button></p>
         <p><button role="button" id="camlQueries">CamlQuery</button></p>
         <p><button role="button" id="dataBinding">Data Bind</button></p>
+        <p><button role="button" id="createList">Create A List</button></p>
     </div>
 
 </asp:Content>

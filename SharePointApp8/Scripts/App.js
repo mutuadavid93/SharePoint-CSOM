@@ -4,6 +4,7 @@ $(function () {
     $('#loadButton').click(loadAndInclude);
     $('#camlQueries').click(camlQueries);
     $('#dataBinding').click(dataBinding);
+    $('#createList').click(createList);
 }); //doument ready
 
 function dataBinding(evt) {
@@ -120,3 +121,37 @@ function loadAndInclude(event) {
         alert("Call failed in loadAndInclude(). Error: " + args.get_message());
     }
 } // loadAndInclude()
+
+
+// Creating A List in Code
+function createList(event) {
+    event.preventDefault();
+
+    var curCTX = SP.ClientContext.get_current();
+    var web = curCTX.get_web();
+
+    try {
+        var lci = new SP.ListCreationInformation();
+
+        // Set the List Properties
+        lci.set_title("Code_Tasks_List");
+        lci.set_templateType(SP.ListTemplateType.tasks);
+        lci.set_quickLaunchOption(SP.QuickLaunchOptions.on);
+
+        // Now Create the List
+        var list = web.get_lists().add(lci);
+
+        curCTX.executeQueryAsync(success3, fail3);
+    } catch (Exception) {
+        alert(Exception.message);
+    }
+
+    function success3() {
+        var message = $('#message');
+        message.text("List Created Successfully.");
+    }
+
+    function fail3(sender, args) {
+        alert("Call failed in createList(). Error: " + args.get_message());
+    }
+} // createList()
