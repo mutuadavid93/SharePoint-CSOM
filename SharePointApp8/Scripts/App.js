@@ -5,6 +5,8 @@ $(function () {
     $('#camlQueries').click(camlQueries);
     $('#dataBinding').click(dataBinding);
     $('#createList').click(createList);
+    $('#createItem').click(createItem);
+    $('#updateListItem').click(updateListItem);
 }); //doument ready
 
 function dataBinding(evt) {
@@ -179,13 +181,78 @@ function createList(event) {
     } catch (Exception) {
         alert(Exception.message);
     }
-
-    //function success3() {
-    //    var message = $('#message');
-    //    message.text("List Created Successfully.");
-    //}
-
-    //function fail3(sender, args) {
-    //    alert("Call failed in createList(). Error: " + args.get_message());
-    //}
 } // createList()
+
+
+
+function createItem(event) {
+    event.preventDefault();
+    var ctxCur = SP.ClientContext.get_current();
+    
+    try{
+        var list = ctxCur.get_web().get_lists().getByTitle("Code_Tasks_List");
+
+        // Now Create the Item
+        var ici = new SP.ListCreationInformation();
+        var item = list.addItem(ici);
+        item.set_item("Title", "Sample Title");
+        item.set_item("AssignedTo", ctxCur.get_web().get_currentUser());
+        var due = new Date();
+        due.setDate(due.getDate() + 7);
+        item.set_item("DueDate", due);
+        item.update();
+
+        ctxCur.executeQueryAsync(success, fail);
+    } catch (Ex) {
+        alert(Ex.message);
+    }
+
+    function success() {
+        var message = $('#message');
+        message.html("Item Created Successfully");
+    }
+
+    function fail(sender, args) {
+        alert("Call failed in createItem(). Error: " + args.get_message());
+    }
+}// createItem()
+
+
+function updateListItem(event) {
+    event.preventDefault();
+    var ctxCur = SP.ClientContext.get_current();
+    var items = null;
+
+    try{
+        var list = ctxCur.get_web().get_lists().getByTitle("Code_Tasks_List");
+
+        var query = new SP.CamlQuery();
+        query.set_viewXml("<View><RowLimit>1</RowLimit></View>");
+        var qitems = list.getItems(query);
+
+        items = ctxCur.loadQuery(qitems);
+        ctxCur.executeQueryAsync(success, fail);
+    } catch (Ex) {
+        alert("Caught Error: "+Ex.message);
+    }
+
+    function success() {
+        if (items.length > 0) {
+            var item = items[0];
+            item.set_item("Status", "In Progress");
+            item.set_item("PercentComplete", 0.10);
+            item.update();
+        }
+
+        ctxCur.executeQueryAsync(success1, fail);
+    }
+
+    function success1() {
+        var message = $('#message');
+        message.html("Item Updated Successfully");
+    }
+
+    function fail(sender, args) {
+        alert("Call failed in updateListItem(). Error: " + args.get_message());
+    }
+} // updateListItem()
