@@ -7,6 +7,8 @@ $(function () {
     $('#createList').click(createList);
     $('#createItem').click(createItem);
     $('#updateListItem').click(updateListItem);
+    $('#callToHostWeb').click(callToHostWeb);
+    
 }); //doument ready
 
 function dataBinding(evt) {
@@ -256,3 +258,50 @@ function updateListItem(event) {
         alert("Call failed in updateListItem(). Error: " + args.get_message());
     }
 } // updateListItem()
+
+
+// Access Host Web Resources(i.e. Lists/Libraries) from App Web;
+function callToHostWeb(evt) {
+    event.preventDefault(evt);
+
+    var hostUrl = decodeURIComponent(getQueryStringParameter("SPHostUrl"));
+
+    var context = SP.ClientContext.get_current();
+    var hostContext = new SP.AppContextSite(context, hostUrl);
+    var web = hostContext.get_web();
+
+    var list = web.get_lists().getByTitle("Categories");
+    var camlQuery = new SP.CamlQuery();
+    camlQuery.set_viewXml("<View />");
+    var qitems = list.getItems(camlQuery);
+
+    var items = context.loadQuery(qitems);
+    context.executeQueryAsync(success, fail);
+
+    function success() {
+        var message = $('#message');
+        message.text("Categories in the Host Web List: ");
+        message.append("<br />");
+
+        // Loop through ListItems
+        $.map(items, function (value, index) {
+            message.append(value.get_item("Title"));
+            message.append("<br />");
+        }); // Each Loop
+    }
+
+    function fail(sender, args) {
+        alert("Call failed in callToHostWeb(). Error: " + args.get_message());
+    }
+
+    // Script FUnction to get Query String Parameter e.g. SPHostUrl
+    function getQueryStringParameter(paramToRetrieve) {
+        var params = document.URL.split("?")[1].split("&");
+        var strParams = "";
+        for (var i = 0; i < params.length; i = i + 1) {
+            var singleParam = params[i].split("=");
+            if (singleParam[0] == paramToRetrieve)
+                return singleParam[1];
+        } // for loop
+    } // getQueryStringParameter()
+} // callToHostWeb()

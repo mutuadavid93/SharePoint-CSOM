@@ -54,6 +54,7 @@
         <p><button role="button" id="createList">Create A List</button></p>
         <p><button role="button" id="createItem">Create ListItem</button></p>
         <p><button role="button" id="updateListItem">update ListItem</button></p>
+        <p><button role="button" id="callToHostWeb">Access Host Web List</button></p>
         
     </div>
 
