@@ -79,9 +79,11 @@
     <None Include="Scripts\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{810da558-f4b9-48d4-a183-937184e6c059}</SharePointProjectItemId>
     </None>
+    <Content Include="Pages\CustomAppPage.aspx" />
     <Content Include="Products\Elements.xml" />
     <Content Include="Products\ProductsInstance\Elements.xml" />
     <Content Include="Products\Schema.xml" />
+    <Content Include="Scripts\AppCustom.js" />
     <Content Include="Scripts\Elements.xml" />
     <Content Include="Scripts\App.js" />
     <Content Include="Scripts\jquery-1.9.1.intellisense.js" />

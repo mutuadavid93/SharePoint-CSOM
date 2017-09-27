@@ -7,7 +7,8 @@ $(function () {
     $('#createList').click(createList);
     $('#createItem').click(createItem);
     $('#updateListItem').click(updateListItem);
-    $('#callToHostWeb').click(callToHostWeb);
+    $('#managedMetaDataCreation').click(managedMetaDataCreation);
+    $('#callToHostWeb').click(callToHostWeb); 
     
 }); //doument ready
 
@@ -308,3 +309,36 @@ function callToHostWeb(evt) {
         } // for loop
     } // getQueryStringParameter()
 } // callToHostWeb()
+
+
+
+/// MANAGED METADATA Taxonomy
+// Refers to a hierarchical collection of terms that can be defined, then used in 
+// an item in SharePoint. 
+
+function managedMetaDataCreation(event) {
+    event.preventDefault();
+    var lcid = _spPageContextInfo.currentLanguage;
+
+    var context = SP.ClientContext.get_current();
+    var web = context.get_web();
+    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+    var store = session.get_termStores().getByName("Managed Metadata Service");
+    var group = store.createGroup("JavaScript", "03F5F03F-CD25-466E-8C2A-E2C22C42ED75");
+    var set = group.createTermSet("Projects", "6E5B7101-24A2-49A6-A031-648F389D8819", lcid);
+    set.createTerm("Penske", lcid, "E1B08A5A-D815-4F74-91A5-53D730EE93A1");
+    set.createTerm("Manhattan", lcid, "A32D4ECD-82C1-46AA-B32D-BCBF688AE29A");
+    set.createTerm("Alan Parsons", lcid, "89B38D86-09CC-4A60-980F-24F35FE900ED");
+    context.executeQueryAsync(success, fail);
+
+    function success() {
+        var message = jQuery("#message");
+        message.text("Terms added");
+    }
+
+    function fail(sender, args) {
+        alert("Call failed. Error: " +
+            args.get_message());
+    }
+}// managedMetaDataCreation
+

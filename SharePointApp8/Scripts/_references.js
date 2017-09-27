@@ -6,3 +6,4 @@
 /// <reference path="~/_layouts/15/SP.UI.Dialog.js" />
 /// <reference path="~/_layouts/15/SP.js" />
 /// <reference path="jsrender.min.js" />
+/// <reference path="~/_layouts/15/SP.Taxonomy.js" />

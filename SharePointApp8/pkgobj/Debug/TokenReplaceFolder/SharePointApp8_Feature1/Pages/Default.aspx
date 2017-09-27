@@ -12,6 +12,7 @@
     <script type="text/javascript" src="../Scripts/jsrender.min.js"></script>
     <script type="text/javascript" src="/_layouts/15/sp.runtime.js"></script>
     <script type="text/javascript" src="/_layouts/15/sp.js"></script>
+    <%--<script type="text/javascript" src="/_layouts/15/SP.Taxonomy.js"></script>--%>
     <meta name="WebPartPageExpansion" content="full" />
 
     <!-- Add your CSS styles to the following file -->
@@ -19,6 +20,7 @@
 
     <!-- Add your JavaScript to the following file -->
     <script type="text/javascript" src="../Scripts/App.js"></script>
+    
 
     <script id="products-template" type="text/x-jsrender">
         <ul>
@@ -55,6 +57,7 @@
         <p><button role="button" id="createItem">Create ListItem</button></p>
         <p><button role="button" id="updateListItem">update ListItem</button></p>
         <p><button role="button" id="callToHostWeb">Access Host Web List</button></p>
+        <p><button role="button" id="managedMetaDataCreation">Create Managed MetaData</button></p>
         
     </div>
 
