@@ -5,8 +5,11 @@
 
 <asp:Content ContentPlaceHolderId="PlaceHolderAdditionalPageHead" runat="server">
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
-    <SharePoint:ScriptLink name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />
+    <script type="text/javascript" src="/_layouts/15/sp.runtime.js"></script>
+    <script type="text/javascript" src="/_layouts/15/sp.js"></script>
+    <script type="text/javascript" src="/_layouts/15/SP.Taxonomy.js"></script>
     <script type="text/javascript" src="/_layouts/15/SP.UserProfiles.js"></script>
+    <script type="text/javascript" src="/_layouts/15/SP.Search.js"></script>
 
     <%--Custom JS Scripts--%>
     <script type="text/javascript" src="../Scripts/AppCustom.js"></script>
@@ -24,8 +27,10 @@
         
         <p><button role="button" id="createLibrary">createDocLibrary</button></p>
         <p><button role="button" id="userPermiSions">User Permissions</button></p>
+        <p><button role="button" id="getProfileProperties">User Profile</button></p>
+        <p><button role="button" id="searchFunc">Search</button></p>
         
-
+        
         <p>
             <input type="text" id="listToDelete" /><button role="button" id="DeleteList">Delete List</button>
         </p>
