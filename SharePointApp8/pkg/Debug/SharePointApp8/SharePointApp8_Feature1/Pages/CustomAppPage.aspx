@@ -7,6 +7,7 @@
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
     <SharePoint:ScriptLink name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />
     <script type="text/javascript" src="../Scripts/AppCustom.js"></script>
+    <script type="text/javascript" src="../Scripts/UserPermissions.js"></script>
 
     <meta name="WebPartPageExpansion" content="full" />
 
@@ -19,6 +20,7 @@
         <br />
         
         <p><button role="button" id="createLibrary">createDocLibrary</button></p>
+        <p><button role="button" id="userPermiSions">User Permissions</button></p>
         
 
         <p>

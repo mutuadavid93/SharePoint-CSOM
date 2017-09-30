@@ -9,5 +9,6 @@
     <ProjectItemFile Source="jquery-1.9.1.intellisense.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="jsrender.min.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="AppCustom.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="UserPermissions.js" Target="Scripts\" Type="ElementFile" />
   </Files>
 </ProjectItem>

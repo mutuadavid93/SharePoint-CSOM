@@ -8,5 +8,6 @@
     <File Path="Scripts\jquery-1.9.1.intellisense.js" Url="Scripts/jquery-1.9.1.intellisense.js" ReplaceContent="TRUE" />
     <File Path="Scripts\jsrender.min.js" Url="Scripts/jsrender.min.js" ReplaceContent="TRUE" />
     <File Path="Scripts\AppCustom.js" Url="Scripts/AppCustom.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\UserPermissions.js" Url="Scripts/UserPermissions.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>
