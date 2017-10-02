@@ -4,6 +4,7 @@ $(function () {
     $('#userPermiSions').click(userPermiSions);
     $('#getProfileProperties').click(getProfileProperties);
     $('#searchFunc').click(searchFunc);
+    $('#webServiceAccess').click(webServiceAccess);
     
 });
 
@@ -104,6 +105,7 @@ function searchFunc(event) {
         message.text("Search Results for \"" + queryText + "\"");
         message.append("<br />");
         
+        // Return the Item Title and Associated Link to View It's Details.
         var rows = results.m_value.ResultTables[0].ResultRows;
         $.each(rows, function (index, value) {
             message.append(value.Title + ": " + value.Path);
@@ -115,3 +117,43 @@ function searchFunc(event) {
         alert("Call failed in searchFunc(). Error: " + args.get_message());
     }
 } // searchFunc()
+
+
+// Access a Web Service
+// You need to add the Remote URL to the AppManifest.xml
+function webServiceAccess(evnt) {
+    evnt.preventDefault();
+
+    var context = SP.ClientContext.get_current();
+
+    var request = new SP.WebRequestInfo();
+    request.set_url("http://services.odata.org/northwind/northwind.svc/Categories?$format=json");
+    request.set_method("GET");
+    var response = SP.WebProxy.invoke(context, request);
+
+    context.executeQueryAsync(success, fail);
+
+    function success() {
+        // NB: WebProxy Only Calls Success not Fail
+        if (response.get_statusCode() == 200) {
+            var categories = JSON.parse(response.get_body());
+
+            var message = $('#message');
+            message.text("Categories in the remote Northwind Web Service: ");
+            message.append("<br />");
+
+            // iterate thro the categories
+            $.each(categories.value, function (index, item) {
+                message.append(item.CategoryName);
+                message.append("<br />");
+            }); // each Loop
+        } else {
+            var errorMessage = response.get_body();
+            alert(errorMessage);
+        }
+    }
+
+    function fail(sender, args) {
+        alert("Call failed in webServiceAccess(). Error: " + args.get_message());
+    }
+} // webServiceAccess()

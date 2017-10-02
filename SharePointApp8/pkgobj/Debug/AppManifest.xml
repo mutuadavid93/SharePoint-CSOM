@@ -19,4 +19,7 @@
     <AppPermissionRequest Scope="http://sharepoint/social/tenant" Right="Read" />
     <AppPermissionRequest Scope="http://sharepoint/search" Right="QueryAsUserIgnoreAppPrincipal" />
   </AppPermissionRequests>
+  <RemoteEndpoints>
+    <RemoteEndpoint Url="http://services.odata.org" />
+  </RemoteEndpoints>
 </App>

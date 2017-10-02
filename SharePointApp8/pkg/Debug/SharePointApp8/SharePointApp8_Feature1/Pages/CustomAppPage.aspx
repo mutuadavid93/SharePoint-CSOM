@@ -29,6 +29,7 @@
         <p><button role="button" id="userPermiSions">User Permissions</button></p>
         <p><button role="button" id="getProfileProperties">User Profile</button></p>
         <p><button role="button" id="searchFunc">Search</button></p>
+        <p><button role="button" id="webServiceAccess">Access WebService</button></p>
         
         
         <p>
