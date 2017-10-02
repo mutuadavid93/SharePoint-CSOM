@@ -124,6 +124,10 @@ function searchFunc(event) {
 function webServiceAccess(evnt) {
     evnt.preventDefault();
 
+    // Using Notifications
+    // Notifications Keep Users Informed
+    var messageID = SP.UI.Notify.addNotification("Querying NorthWind WebService for Categories", true);
+
     var context = SP.ClientContext.get_current();
 
     var request = new SP.WebRequestInfo();
@@ -136,6 +140,9 @@ function webServiceAccess(evnt) {
     function success() {
         // NB: WebProxy Only Calls Success not Fail
         if (response.get_statusCode() == 200) {
+            // Remove Notification
+            SP.UI.Notify.removeNotification(messageID);
+
             var categories = JSON.parse(response.get_body());
 
             var message = $('#message');
@@ -148,12 +155,16 @@ function webServiceAccess(evnt) {
                 message.append("<br />");
             }); // each Loop
         } else {
+            // Remove Notification
+            SP.UI.Notify.removeNotification(messageID);
+
             var errorMessage = response.get_body();
             alert(errorMessage);
         }
     }
 
     function fail(sender, args) {
+        SP.UI.Notify.removeNotification(messageID);
         alert("Call failed in webServiceAccess(). Error: " + args.get_message());
     }
 } // webServiceAccess()
